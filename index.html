@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Intro to Johnny-Five</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- <link rel="stylesheet" href="css/reveal.css"> -->
+    <!-- <link rel="stylesheet" href="css/themes/simple.css" id="theme"> -->
+
+    <link rel="stylesheet" href="css/zenburn.css">
+
+    <script src="js/es6-shim.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/unprefix.js"></script>
+    <script src="js/eventemitter.js"></script>
+
+  </head>
+  <body>
+    <div class="reveal neon">
+
+      <!-- Used to fade in a background when a specific slide state is reached -->
+      <div class="state-background"></div>
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+      <section style="display: block;">
+          <a href="assets/sgier-johnny-five.png" target="_blank"><img src="assets/sgier-johnny-five.png" style="width: 450px"></a>
+
+          <h3><a href="http://johnny-five.io/" target="_blank" data-destyle="" class="">johnny-five.io</a></h3>
+
+        </section>
+
+
+        <section style="display: block;">
+          <br><br><br><br>
+          <h1>Follow Along</h1>
+          <h2><a href="http://dtex.github.io/j5-intro-four-hour" target="_blank" data-destyle="" class="">dtex.github.io/j5-intro-four-hour</a></h2>
+          
+        </section>
+ 
+        <section style="display: block;">
+          <br><br><br>
+          <h1>
+            Important Points<br> To Consider
+          </h1>
+        </section>
+
+        <section style="display: block;">
+          <br>
+          <h1>
+            The only dumb question is the one you never asked.
+          </h1>
+        </section>
+
+        <section style="display: block;">
+          <br>
+          <h1>
+            Doesn't work? <br> It's probably the hardware.
+          </h1>
+        </section>
+
+        <section>
+          <h1>
+            Prerequisite Software
+          </h1>
+          <ul>
+            <li><a href="https://nodejs.org/en/download/">node.js</a></li>
+            <li>Any code editor
+              <ul>
+                <li><a href="https://atom.io/">Atom</a></li>
+                <li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+                <li>Any text editor</li>
+              </ul>
+            </li>
+            <li><a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a></li>
+          </ul>
+        </section>
+
+        <section>
+            <h1>
+              Prerequisite Skills
+            </h1>
+            <ul>
+              <li>Create a file</li>
+              <li>Open the file in your text editor</li>
+              <li>Open a terminal window</li>
+              <li>Basic navigation commands
+                <ul>
+                  <li><code contenteditable>mkdir</code> - Create a directory</li>
+                  <li><code contenteditable>dir</code> - List directory contents on Windows</li>
+                  <li><code contenteditable>ls</code> - List directory contents on everything else</li>
+                  <li><code contenteditable>cd foo</code> - Open directory "foo"</li>
+                  <li><code contenteditable>cd ..</code> - Navigate up one level</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+
+        <section>
+          <h1>
+            Why Javascript?
+          </h1>
+          <ul>
+              <li>Ubiquity</li>
+              <li>Community</li>
+              <li>Simplicity</li>
+              <li>Fit</li>
+            </li>
+          </section>
+
+        <section>
+          <img src="assets/tiobe.png" style="width: 800px">
+        </section>
+
+          <section>
+            <img src="assets/github.png" style="width: 800px">
+          </section>
+            
+        <section>
+          <br><br><br><br>
+          <h1>
+            Ready To Make Stuff?
+          </h1>
+        </section>
+
+        <section>
+          <br><br><br><br>
+          <h2>
+            Connect The Arduino to your computer via USB.
+          </h2>
+        </section>
+
+        <section>
+          <h1>
+            Load firmata
+          </h1>
+          <ul>
+            <li>Open the Arduino IDE</li>
+            <li>Open File > Firmata > StandardFirmataPlus</li>
+            <li>Click upload</li>
+          </ul>
+        </section>
+
+        <section>
+          <br><br><br><br>
+          <h1>
+            Create Output
+          </h1>
+        </section>
+
+        <section>
+          <br><br><br><br>
+          <h2>
+            Make a project directory and navigate<br/>there in your terminal
+          </h2>
+        </section>
+
+        <section>
+          <br><br><br>
+          <h3><code>npm init -y</code></h3><br>
+        </section>
+
+        <section>
+          <a href="assets/sgier-johnny-five.png" target="_blank"><img src="assets/sgier-johnny-five.png" style="width: 400px"></a>
+          <h3><code>npm install johnny-five</code></h3>
+        </section>
+        
+        <section>
+          <a href="assets/led_bb.png" target="_blank"><img src="assets/led_bb.png" style="width: 800px"></a>
+        </section>
+
+          <section>
+            <br><br><br><br>
+            <h1>
+              Make a new file...
+            </h1>
+            <h2>Call it led-on.js</h2>
+          </section>
+
+          <section>
+            <h2>Turn it on</h2>
+  <pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var led = new five.Led(11);
+  led.on();
+});</code></pre>
+  <h3><code>node led-on.js</code></h3>
+  <h4>
+    <a href="http://johnny-five.io/api/board" target="_blank">http://johnny-five.io/api/board</a><br/>
+    <a href="http://johnny-five.io/api/led" target="_blank">http://johnny-five.io/api/led</a>
+ </h4>
+          </section>
+
+<section>
+            <h2>Make it blink</h2>
+  <pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var led = new five.Led(11);
+  led.blink();
+});
+  </code></pre>
+  <h3><code>node led-blink.js</code></h3>
+          </section>
+
+          <section>
+          <h2>Change the blink rate.</h2>
+<pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var led = new five.Led(11);
+  led.blink(2500); // <-- ms on/off phases
+});
+</code></pre>
+<h3><code>node led-blink-slow.js</code></h3>
+        </section>
+            <section>
+            <h2>Manual, live control</h2>
+  <pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var led = new five.Led(11);
+
+  this.repl.inject({
+    led: led
+  });
+});
+  </code></pre>
+  <h3><code>node led-boss.js</code></h3>
+          </section>
+
+          <section>
+            <h2>In the REPL</h2>
+  <pre><code contenteditable="" class="undefined">&gt; led.on();
+
+&gt; led.off();
+
+&gt; led.blink();
+
+&gt; led.stop();
+
+&gt; led.pulse();
+
+  </code></pre>
+          </section>
+
+
+        <section>
+          <br><br><br>
+          <h1>
+            Create Digital Input
+          </h1>
+          <h1>
+            0|1
+          </h1>
+        </section>
+
+
+          <section>
+            <a href="assets/button_bb.png" target="_blank"><img src="assets/button_bb.png" style="width: 800px"></a>
+          </section>
+
+          <section>
+          <h2>Respond to Button Press</h2>
+<pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var button = new five.Button(2);
+
+  button.on("press", function() console.log("Button Pressed!"));
+});
+</code></pre>
+<h3><code>node button.js</code></h3>
+<h4>
+  <a href="http://johnny-five.io/api/button" target="_blank">http://johnny-five.io/api/button</a>
+</h4>
+
+        </section>
+
+          <section>
+          <h2>Respond to Button Release</h2>
+<pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var button = new five.Button(2);
+
+  button.on("press", function() console.log("Button Pressed!"));
+  button.on("release", function() console.log("Button Released!"));
+});
+</code></pre>
+<h3><code>node button.js</code></h3>
+        </section>
+
+          <section>
+          <h2>Convert Input to Output</h2>
+<pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var led = new five.Led(11);
+  var button = new five.Button(2);
+
+  button.on("press", function() led.on());
+  button.on("release", function() led.off());
+});
+</code></pre>
+<h3><code>node button.js</code></h3>
+        </section>
+
+
+          <section>
+          <h3>Multiple States of Input to Multiple States of Output</h3>
+<pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var led = new five.Led(11);
+  var button = new five.Button(2);
+
+  button.on("press", function() led.on());
+  button.on("hold", function() led.blink(50));
+  button.on("release", function() led.stop().off());
+});
+</code></pre>
+<h3><code>node button.js</code></h3>
+        </section>
+
+        <section>
+          <br><br><br>
+          <h1>
+            Observe Analog Input
+          </h1>
+        </section>
+
+          <section>
+          <a href="assets/potentiometer_bb.png" target="_blank"><img src="assets/potentiometer_bb.png" style="width: 800px"></a>
+        </section>
+
+          <section>
+          <h3>Receive Values From a Sensor</h3>
+<pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var rotary = new five.Sensor("A0");
+
+  rotary.on("change", function() {
+    console.log("Sensor changed!", this.value);
+  });
+});
+</code></pre>
+<h3><code>node sensor.js</code></h3>
+<h4>
+  <a href="http://johnny-five.io/api/sensor" target="_blank">http://johnny-five.io/api/sensor</a>
+</h4>
+
+        </section>
+
+
+        <section>
+          <br><br><br>
+          <h2><code>
+            npm install barcli
+          </code></h2>
+          <h4>(say: barklee)</h4>
+          <h4>
+            <a href="https://github.com/dtex/barcli" target="_blank">https://github.com/dtex/barcli</a>
+          </h4>
+
+        </section>
+
+          <section>
+          <h3>Analog Data</h3>
+<pre><code contenteditable>var Barcli = require("barcli");
+var five = require("johnny-five");
+
+var board = new five.Board();
+
+board.on("ready", function() {
+  var range = [0, 1024];
+  var graph = new Barcli({
+    label: "Potentiometer",
+    range: range,
+  });
+  var rotary = new five.Sensor("A0");
+
+  rotary.scale(0, 1024).on("change", function() {
+    graph.update(this.value);
+  });
+});
+</code></pre>
+<h3><code>node sensor.js</code></h3>
+        </section>
+
+        <section>
+          <h1>PWM</h1>
+
+          <h3>
+            Pulse Width Modulation, or PWM, is a technique for getting analog results with digital means. <br>Digital control is used to create a square wave, a signal switched between on and off.
+            <br>
+            - Arduino.cc
+          </h3>
+
+        </section>
+
+        <section>
+          <a href="assets/pwm.gif" target="_blank"><img src="assets/pwm.gif" style="width: 400px;background-color:#ffffff"></a>
+        </section>
+
+          <section>
+            <section>
+            <h3>Convert 10-bit Analog Input to 8-bit PWM Output</h3>
+  <pre><code contenteditable>var five = require("johnny-five");
+  var board = new five.Board();
+
+  board.on("ready", function() {
+    var led = new five.Led(11);
+    var rotary = new five.Sensor("A0");
+
+    rotary.on("change", function() {
+      // Analog sensors produce a 10-bit value,
+      // but led brightness is an 8-bit PWM value.
+      // Convert by shifting the value's bits
+      // two places to the right.
+      led.brightness(this.value >> 2);
+    });
+  });
+  </code></pre>
+  <h3><code>node sensor.js</code></h3>
+</section>
+<section>
+    <h1>>> 2</h1>
+    <a href="assets/TMP36.jpg" target="_blank"><img src="assets/bitwise.png" style="width: 800px"></a>
+</section>
+        </section>
+
+        <section>
+          <br><br><br>
+          <h1>Observe The Environment</h1>
+        </section>
+
+
+        <section>
+          <a href="assets/TMP36.jpg" target="_blank"><img src="assets/TMP36.jpg" style="width: 800px"></a>
+        </section>
+
+
+          <section>
+          <a href="assets/tmp36_bb.png" target="_blank"><img src="assets/tmp36_bb.png" style="width: 800px"></a>
+        </section>
+
+      <section>
+      <h3>Temperature</h3>
+<pre><code contenteditable>var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var temp = new five.Temperature({
+    controller: "TMP36",
+    pin: "A0"
+  });
+
+  temp.on("change", function() {
+    console.log(this.celsius + "°C");
+  });
+});
+</code></pre>
+<h3><code>node temperature.js</code></h3>
+    </section>
+
+       <section>
+          <br><br><br>
+          <h1>Convert Temperature to RGB</h1>
+        </section>
+
+        <section>
+          <a href="assets/diffused-rgb-led.jpg" target="_blank"><img src="assets/diffused-rgb-led.jpg" style="width: 600px"></a>
+        </section>
+
+
+        <section>
+          <a href="assets/temperature-rgb.png" target="_blank"><img src="assets/temperature-rgb.png" style="width: 800px"></a>
+        </section>
+
+        <section>
+          <h3>Temperature Display</h3>
+<pre><code contenteditable="" class="javascript"><span class="keyword">var</span> five = require(<span class="string">"johnny-five"</span>);
+<span class="keyword">var</span> board = <span class="keyword">new</span> five.Board();
+
+board.on(<span class="string">"ready"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">var</span> temp = <span class="keyword">new</span> five.Temperature({
+    controller: <span class="string">"TMP36"</span>,
+    pin: <span class="string">"A0"</span>
+  });
+
+  <span class="keyword">var</span> rgb = <span class="keyword">new</span> five.Led.RGB({
+    pins: [<span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>],
+    isAnode: <span class="literal">true</span>
+  });
+
+  temp.on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="comment">// Write an algorithm that converts temperature (F, K or C)</span>
+    <span class="comment">// into an RGB hex value.</span>
+    rgb.color(??????);
+  });
+});
+</code></pre>
+        </section>
+
+        <section>
+          <a href="assets/sgier-johnny-five(1).png" target="_blank"><img src="assets/sgier-johnny-five(1).png" style="width:400px;height:400px"></a>
+          <h3>
+            johnny-five.io
+          </h3>
+        </section>
+
+      </div>
+
+      <!-- The navigational controls UI -->
+      <aside class="controls" style="display: block;">
+        <a class="left enabled" href="Arduino.html#">◄</a>
+        <a class="right enabled" href="Arduino.html#">►</a>
+        <a class="up" href="Arduino.html#">▲</a>
+        <a class="down" href="Arduino.html#">▼</a>
+      </aside>
+
+      <!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+      <div class="progress" style="display: block;"><span style="width: 72.3859649122807px;"></span></div>
+
+    </div>
+
+    <!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
+
+    <script src="js/highlight.js"></script>
+    <script src="js/classList.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+    // Parse the query string into a key/value object
+    var query = {};
+
+    location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+      query[ a.split( "=" ).shift() ] = a.split( "=" ).pop();
+    });
+
+    var images = Array.from(document.querySelectorAll("img"));
+
+    images.forEach(function(image) {
+      var anchor = document.createElement("a");
+      var clone = image.cloneNode();
+
+      anchor.href = clone.src;
+      anchor.target = "_blank";
+      anchor.appendChild(clone);
+
+      image.parentNode.replaceChild(anchor, image);
+    });
+
+    $(function() {
+      $("[data-destyle]").each(function() {
+        $(this).removeClass("roll").text($(this).find("span").text());
+      });
+    });
+    
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+
+      // Display a presentation progress bar
+      progress: true,
+
+      // If true; each slide will be pushed to the browser history
+      history: true,
+
+      // Loops the presentation, defaults to false
+      loop: false,
+
+      // Flags if mouse wheel navigation should be enabled
+      mouseWheel: true,
+
+      // Apply a 3D roll to links on hover
+      rollingLinks: true,
+
+      // UI style
+      theme: query.theme || "neon", // default/neon
+
+      // Transition style
+      transition: query.transition || "default" // default/cube/page/concave/linear(2d)
+    });
+
+    hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body></html>
